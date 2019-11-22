@@ -363,17 +363,17 @@ print x.avg(1,2,3)
         //General reference:
         //https://stackoverflow.com/questions/7053172/how-can-i-call-ironpython-code-from-a-c-sharp-app
 
-        public string ReferenceHostMethods(string inputvalue, TestApp)
-        {
-            //How to call host object methods:
-            //https://stackoverflow.com/questions/6234355/access-host-class-from-ironpython-script
+        //public string ReferenceHostMethods(string inputvalue, TestApp)
+        //{
+        //    //How to call host object methods:
+        //    //https://stackoverflow.com/questions/6234355/access-host-class-from-ironpython-script
 
-            var engine = Python.CreateEngine();
-            var scope = engine.CreateScope();
-            scope.SetVariable("Host", TestApp.Form1);
-            var src = engine.CreateScriptSourceFromFile(...);
-            src.Execute(scope);
-        }
+        //    var engine = Python.CreateEngine();
+        //    var scope = engine.CreateScope();
+        //    scope.SetVariable("Host", TestApp.Form1);
+        //    var src = engine.CreateScriptSourceFromFile(...);
+        //    src.Execute(scope);
+        //}
 
 
 
