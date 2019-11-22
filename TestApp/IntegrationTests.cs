@@ -363,17 +363,35 @@ print x.avg(1,2,3)
         //General reference:
         //https://stackoverflow.com/questions/7053172/how-can-i-call-ironpython-code-from-a-c-sharp-app
 
-        //public string ReferenceHostMethods(string inputvalue, TestApp)
-        //{
-        //    //How to call host object methods:
-        //    //https://stackoverflow.com/questions/6234355/access-host-class-from-ironpython-script
+        public string ReferenceHostMethods(string inputvalue, TestApp.Form1 TestApp1)
+        {
+            //How to call host object methods:
+            //https://stackoverflow.com/questions/6234355/access-host-class-from-ironpython-script
 
-        //    var engine = Python.CreateEngine();
-        //    var scope = engine.CreateScope();
-        //    scope.SetVariable("Host", TestApp.Form1);
-        //    var src = engine.CreateScriptSourceFromFile(...);
-        //    src.Execute(scope);
-        //}
+            var engine = Python.CreateEngine();
+            var scope = engine.CreateScope();
+
+
+
+            string strRunHostMethod = @"
+def RunHostMethod(name):
+    msg = Host.GetAString() + '  ' + name
+    return msg
+";
+
+            ScriptSource source = engine.CreateScriptSourceFromString(strRunHostMethod, SourceCodeKind.Statements);
+            source.Execute(scope);
+
+            //Pass the host form to the scripting environment as a global:
+            scope.SetVariable("Host", TestApp1);
+
+            //Get a function pointer to the method:
+            var fRunHostMethod = scope.GetVariable<Func<string, string>>("RunHostMethod");
+
+            var result = fRunHostMethod("Michal");
+
+            return result;
+        }
 
 
 

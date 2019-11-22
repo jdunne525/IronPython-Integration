@@ -19,6 +19,11 @@ namespace TestApp
             InitializeComponent();
         }
 
+        public string GetAString()
+        {
+            return "I'm a string from a host method";
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             listBox1.Items.Add(myIntegrationTests.SimpleExecutionTest().ToString());
@@ -33,6 +38,9 @@ namespace TestApp
             listBox1.Items.Add(myIntegrationTests.InstantiatePythonViaConfigurationFileTest().ToString());
             listBox1.Items.Add(myIntegrationTests.PassingParameterTest().ToString());
             listBox1.Items.Add(myIntegrationTests.PassingParameterTest2().ToString());
+
+            listBox1.Items.Add(myIntegrationTests.ReferenceHostMethods("test", this).ToString());
+            
         }
     }
 }
