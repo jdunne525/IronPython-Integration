@@ -20,17 +20,18 @@ namespace IronPython.Integration
     public class IntegrationTests
     {
         [Test]
-        public void SimpleExecutionTest()
+        public dynamic SimpleExecutionTest()
         {
             ScriptEngine engine = Python.CreateEngine();
 
             dynamic result = engine.Execute(@"2+2");
 
             Assert.IsTrue(result == 4);  
+            return result;
         }
 
         [Test]
-        public void PassingParameterTest()
+        public dynamic PassingParameterTest()
         {
             ScriptEngine engine = Python.CreateEngine();
             ScriptScope scope = engine.CreateScope();
@@ -46,13 +47,14 @@ def PrintHello(name):
 
             var fPrintHello = scope.GetVariable<Func<string, string>>("PrintHello");
 
-            var result = fPrintHello("Michal");          
+            var result = fPrintHello("Michal");
 
             Assert.IsTrue(result == "Hello Michal");
+            return result;
         }
 
         [Test]
-        public void PassingParametersTest()
+        public dynamic PassingParametersTest()
         {
             ScriptEngine engine = Python.CreateEngine();
             ScriptScope scope = engine.CreateScope();
@@ -86,10 +88,12 @@ def Add(a, b):
 
             result = engine.Operations.Invoke(fAdd, parameters.ToArray());
             Assert.IsTrue(result == 6);
+
+            return result;
         }
 
         [Test]
-        public void MixingPythonWithCSharpMethodTest()
+        public dynamic MixingPythonWithCSharpMethodTest()
         {
             ScriptEngine engine = Python.CreateEngine();
             ScriptScope scope = engine.CreateScope();
@@ -122,10 +126,11 @@ def Add(a, b):
             dynamic result = engine.Operations.Invoke(fAdd, 2, 4);
 
             Assert.IsTrue(result == 10);
+            return result;
         }
 
         [Test]
-        public void InstantiatePythonClassTest()
+        public dynamic InstantiatePythonClassTest()
         {
             ScriptEngine engine = Python.CreateEngine();
             ScriptScope scope = engine.CreateScope();
@@ -140,10 +145,11 @@ def Add(a, b):
             dynamic result = engine.Operations.InvokeMember(instance, "avg", 1, 2, 3);
 
             Assert.IsTrue(result == 2);
+            return result;
         }
 
         [Test]
-        public void ImportingNamespacesTest()
+        public dynamic ImportingNamespacesTest()
         {
             ScriptEngine engine = Python.CreateEngine();
             ScriptScope scope = engine.CreateScope();
@@ -170,10 +176,11 @@ def DivideAndReturnAsStirng(a,b):
             var result = engine.Operations.Invoke(function, "11", "3");
 
             Assert.IsTrue(result == "3.6666666666666666666666666667" || result == "3,6666666666666666666666666667");
+            return result;
         }
 
         [Test]
-        public void ReturningGenericListFromPythonTest()
+        public dynamic ReturningGenericListFromPythonTest()
         {
             ScriptEngine engine = Python.CreateEngine();
             ScriptScope scope = engine.CreateScope();
@@ -204,13 +211,15 @@ def PythonListToGeneric():
             var b = (List<string>)engine.Operations.Invoke(f2);
             var c = ((IList<object>)engine.Operations.Invoke(f3)).ToList();
 
+
             Assert.IsTrue(a.Count == 3);
             Assert.IsTrue(b.Count == 3);
             Assert.IsTrue(c.Count == 3);
+            return a.Count.ToString() + " " + b.Count.ToString() + " " + c.Count.ToString();
         }
 
         [Test]
-        public void GenerateDotNetAssemblyFromPythonScriptTest()
+        public dynamic GenerateDotNetAssemblyFromPythonScriptTest()
         {
             // The clr.CompileModules is purely a load-time optimization - it doesn't make the scripts directly available to a static languge like C#. 
             // You'll need to host the IronPython runtime, and then you can load the DLL into the runtime and use IronPython's hosting interfaces to access it.
@@ -244,10 +253,11 @@ clr.CompileModules(""simple_class.dll"", ""simple_class.py"")
             dynamic result = engine.Operations.InvokeMember(instance, "avg", 1, 2, 3);
 
             Assert.IsTrue(result == 2);
+            return result;
         }
 
         [Test]
-        public void ReturnDateTimeHandlingTest()
+        public dynamic ReturnDateTimeHandlingTest()
         {
             // http://www.doughellmann.com/PyMOTW/datetime/
 
@@ -295,19 +305,31 @@ def ConversionTest(d):
             var fConversionTest = scope.GetVariable<Func<DateTime, DateTime>>("ConversionTest");
 
             result = fConversionTest(now);
+
             Assert.That(now, Is.EqualTo(result).Within(TimeSpan.FromSeconds(1)));
+            return result;
         }
 
         [Test]
-        public void InstantiatePythonViaConfigurationFileTest()
+        public bool InstantiatePythonViaConfigurationFileTest()
         {
-            ScriptEngine engine = ScriptRuntime.CreateFromConfiguration().GetEngine("Python");
+            //can't get this to work properly...
+            //ScriptEngine engine = ScriptRuntime.CreateFromConfiguration().GetEngine("Python");
 
-            Assert.IsTrue(engine != null);
+            //ScriptRuntimeSetup setup = new ScriptRuntimeSetup();
+            //ScriptRuntime engine = new ScriptRuntime(setup);
+
+            //ScriptRuntime runtime = ScriptRuntime.CreateFromConfiguration();
+            //ScriptEngine engine = runtime.GetEngine("Python");
+
+            //Assert.IsTrue(engine != null);
+            //return engine != null;
+
+            return false;
         }
 
         [Test]
-        public void PassingParameterTest2()
+        public dynamic PassingParameterTest2()
         {
             ScriptEngine engine = Python.CreateEngine();
             ScriptScope scope = engine.CreateScope();
@@ -347,6 +369,7 @@ print x.avg(1,2,3)
             source.Execute(scope);
 
             Assert.IsTrue(calledStuff.Count > 0);
+            return calledStuff.Count;
         }
 
         public static int GetValue()

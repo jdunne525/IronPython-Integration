@@ -1,7 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronPython.Integration", "IronPython.Integration\IronPython.Integration.csproj", "{B2A60EE2-9567-45B9-A90C-1B49E01F8F02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{30CA01BC-FD24-4B4E-812C-69AFA7E9EC46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,8 +17,15 @@ Global
 		{B2A60EE2-9567-45B9-A90C-1B49E01F8F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2A60EE2-9567-45B9-A90C-1B49E01F8F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2A60EE2-9567-45B9-A90C-1B49E01F8F02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30CA01BC-FD24-4B4E-812C-69AFA7E9EC46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30CA01BC-FD24-4B4E-812C-69AFA7E9EC46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30CA01BC-FD24-4B4E-812C-69AFA7E9EC46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30CA01BC-FD24-4B4E-812C-69AFA7E9EC46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5FA9BF5B-DE4A-44E0-90CB-EF811027EB52}
 	EndGlobalSection
 EndGlobal
